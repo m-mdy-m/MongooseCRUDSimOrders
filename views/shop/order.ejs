@@ -3,25 +3,22 @@
 </head>
 <%- include('../includes/header.ejs') %>
 <main class="main">
-    <% if (orders.length <= 0){ %>
-        <% if (orders.length <= 0){ %>
+    <% if (orders.length >0) { %>
+        <ul>
+            <% orders.forEach(order =>{ %>
+                <li>
+                    <h1># <%= order._id  %></h1>
+                    <ul>
+                        <% order.products.forEach(p => { %>
+                            <li style="color: wheat;font-size: 20px; font-family: sans-serif;"><%= p.product  %> (<%= p.number %>)</li>   
+                        <% }) %>
+                    </ul>
+                </li>
+            <% }) %>
+        </ul>
+        <% }else { %>
             <h1>Nothing there!</h1>
-            <% } else { %>
-                <ul>
-                    <% orders.forEach(order =>{ %>
-                        <li>
-                            <h1># <%= order._id  %></h1>
-                            <ul>
-                                <% order.products.forEach(p => { %>
-                                    <li style="color: wheat;font-size: 20px; font-family: sans-serif;"><%= p.product  %> (<%= p.number %>)</li>   
-                                <% }) %>
-                            </ul>
-                        </li>
-                    <% }) %>
-                </ul>
-
-            <% } %>
-    <% } %>
+        <% } %>
 </main>
 <%- include('../includes/end.ejs') %>
 
