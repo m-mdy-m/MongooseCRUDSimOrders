@@ -19,5 +19,13 @@ exports.deleteProds = async (req, res) => {
 };
 exports.getEdit = async (req,res)=>{
     const id = req.params.prodId
-    console.log(id);
+    const editMode = req.query.edit
+    const products = await Product.findById(id)
+    res.render('shop/add-product', {
+        title : 'updateProduct',
+        path : req.path,
+        products,
+        editMode,
+
+    })
 }
