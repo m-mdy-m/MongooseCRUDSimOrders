@@ -13,7 +13,7 @@ const User = new Schema({
   },
   cart: {
     SPN: {
-      prodID: {
+      prodId: {
         type: Schema.Types.ObjectId,
         ref: "Product",
         required: true,
@@ -31,19 +31,21 @@ User.method.addCart = async function (product) {
     this.cart = { SPN: [] };
   }
   const carts = this.cart.SPN;
-  // const cartIndex = carts.findIndex(spn =>{
-  //     return spn.prod
-  // })
-  let baseNumbers = 1;
-  const upCart = [...carts];
-  upCart.push({
-    prodId: product._id,
-    number: baseNumbers,
-  });
-  const updateCart = {
-    SPN: upCart,
-  };
-  this.cart = updateCart;
+  const cartsIndex = carts.findIndex(index =>{
+    return index.prodId.toString() === product._id.toString()
+  })
+  
+  let number = 1;
+  if (cartsIndex >= 0){
+    number =carts[cartsIndex].number +1;
+    carts[cartsIndex].number = number 
+  }else{
+    carts.push({
+        prodId : product._id,
+        number,
+    })
+  }
+  this.cart.SPN = carts;
   return await this.save();
 };
 module.exports = mongoose.model("User", User);

@@ -19,13 +19,10 @@ exports.getAddProduct = async (req, res, nxt) => {
   });
 };
 
-
-exports.postAddCart = async (req,res)=>{
-    const prodId = req.body.prodId
-    const product = await Product.findById(prodId)
-    console.log('req.user =>', req.user)
-    console.log('req.user.addCart =>', req.user.addCart)
-    // const addCart = await req.user.addCart(product)
-    // console.log("add cart =>", addCart)
-    // return res.redirect('/cart')
-}
+exports.postAddCart = async (req, res) => {
+    const prodId = req.body.prodId;
+    const product = await Product.findById(prodId);
+    const addCart = await req.user.addToCart(product);
+    console.log("added to cart =>", addCart);
+    return res.redirect("/");
+  };

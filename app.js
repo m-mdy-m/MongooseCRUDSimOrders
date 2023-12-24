@@ -14,15 +14,15 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use( async (req,res,next)=>{
-    try{
-        const user = await User.findById('65885491852264693b20a297')
-        req.user = user
-        next()
-    }catch(err){
-        console.log(err);
-    }
-})
+app.use(async (req, res, next) => {
+  try {
+    const user = await User.findById("65885bff93c5cc3919ee1eba");
+    req.user = user;
+    next();
+  } catch (err) {
+    console.log(err);
+  }
+});
 app.use(homeRoute);
 app.use(shopRoute);
 app.use(adminRoute);
@@ -33,7 +33,7 @@ const startServer = async () => {
     console.log("connect database");
     const user = await User.findOne();
     if (!user) {
-      const user = await User.create({
+      const user = await new User({
         name: "mahdi",
         email: "mahdi@gmail.com",
         cart: {
