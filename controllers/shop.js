@@ -9,3 +9,10 @@ exports.postAddProduct = async (req,res,nxt)=>{
     console.log('Create Product :', product);
     return res.redirect('/')
 }
+exports.getAddProduct = async(req,res,nxt)=>{
+    res.render('shop/add-product', {
+      title  : "add product",
+      path : req.path,
+      editMode : false,  
+    })
+}

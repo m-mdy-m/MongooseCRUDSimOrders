@@ -3,13 +3,17 @@ const app = express()
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const path = require('path')
+// == ** ROUTER ** == //
+const shopRoute = require('./routes/shop')
+
+
 
 app.set('view engine', 'ejs')
 app.set('views', 'views')
 app.use(bodyParser.urlencoded({extended : false}))
 app.use(express.static(path.join(__dirname , "public")))
 
-
+app.use(shopRoute)
 
 const startServer = async ()=>{
     try{
