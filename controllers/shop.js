@@ -51,3 +51,10 @@ exports.deleteCart = async (req,res)=>{
 	console.log("user delete");
 	return res.redirect("/cart");
 }
+
+exports.postOrder = async (req,res)=>{
+    
+}
+exports.getOrders = async (req,res)=>{
+    
+}
