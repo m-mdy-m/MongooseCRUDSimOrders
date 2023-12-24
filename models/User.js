@@ -26,7 +26,7 @@ const User = new Schema({
   },
 });
 
-User.method.addCart = async function (product) {
+User.methods.addToCart = async function (product) {
   if (!this.cart) {
     this.cart = { SPN: [] };
   }
