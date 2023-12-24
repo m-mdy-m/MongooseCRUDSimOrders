@@ -44,3 +44,10 @@ exports.getCart = async (req, res) => {
     console.log(error);
   }
 };
+exports.deleteCart = async (req,res)=>{
+    const id = req.body.prodId
+    const deleteUser = await req.user.removeFromCart(id);
+	console.log(deleteUser);
+	console.log("user delete");
+	return res.redirect("/cart");
+}

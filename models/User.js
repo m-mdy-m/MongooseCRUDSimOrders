@@ -26,6 +26,13 @@ const User = new Schema({
     ],
   },
 });
+User.methods.removeFromCart =function (productId) {
+	const updateCartItems = this.cart.SPN.filter(item => {
+		return item.prodId.toString() !== productId.toString();
+	});
+	this.cart.SPN = updateCartItems
+    return this.save()
+};
 
 User.methods.addToCart = async function (product) {
   if (!this.cart) {
