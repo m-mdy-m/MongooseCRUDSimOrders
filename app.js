@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(async (req, res, next) => {
   try {
-    const user = await User.findById("658862a44d74769b0f5a44e1");
+    const user = await User.findById("6588682ad633ef2d15e53754");
     req.user = user;
     next();
   } catch (err) {
@@ -33,10 +33,9 @@ const startServer = async () => {
     console.log("connect database");
     const user = await User.findOne();
     if (!user) {
-      const user = await new User({
+      const user = new User({
         name: "mahdi",
         email: "mahdi@gmail.com",
-        cart: { SPN: [] }, // Select Product Number
       });
       user.save();
     }

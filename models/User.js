@@ -12,41 +12,44 @@ const User = new Schema({
     required: true,
   },
   cart: {
-    SPN: {
-      prodId: {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-        // required: true,
+    SPN: [
+      {
+        prodId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+        },
+        number: {
+          type: Number,
+          required: true,
+        },
       },
-      number: {
-        type: Number,
-        // required: true,
-      },
-    },
+    ],
   },
 });
 
-User.methods.addCart = async function (product) {
+User.methods.addToCart = async function (product) {
+  if (!this.cart) {
+    this.cart = { SPN: [] };
+  }
   const carts = this.cart.SPN;
-  console.log("carts =>", typeof this.cart.SPN);
-  const cartsIndex = carts.findIndex((index) => {
-    return index.prodId.toString() === product._id.toString();
+  const cartsIndex = carts.findIndex((i) => {
+    return i.prodId.toString() === product._id.toString();
   });
-  const upCart = [...carts];
+  const copyCart = [...carts];
   let number = 1;
-  if (cartsIndex >= 0) {
-    number = carts[cartsIndex].number + 1;
-    carts[cartsIndex].number = number;
+  if (cartsIndex > 0) {
+    number = copyCart[cartsIndex].number + 1;
+    copyCart[cartsIndex].number = number;
   } else {
-    upCart.push({
+    copyCart.push({
       prodId: product._id,
       number,
     });
   }
-  const updateCart = {
-    SPN: upCart,
+  const UpdateCart = {
+    SPN: copyCart,
   };
-  this.cart = updateCart;
-  return await this.save();
+  this.cart = UpdateCart
+  return this.save()
 };
 module.exports = mongoose.model("User", User);
