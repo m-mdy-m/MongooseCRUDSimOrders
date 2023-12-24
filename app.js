@@ -6,7 +6,7 @@ const path = require('path')
 // == ** ROUTER ** == //
 const shopRoute = require('./routes/shop')
 const homeRoute = require('./routes/home')
-
+const adminRoute = require('./routes/admin')
 
 app.set('view engine', 'ejs')
 app.set('views', 'views')
@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname , "public")))
 
 app.use(homeRoute)
 app.use(shopRoute)
+app.use(adminRoute)
 const startServer = async ()=>{
     try{
         const url = 'mongodb://localhost:27017/MongooseCRUDSimOrders'
