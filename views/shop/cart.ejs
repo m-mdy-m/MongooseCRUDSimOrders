@@ -4,24 +4,25 @@
 <%- include('../includes/header.ejs') %>
 <main class="main">
     <% if (products.length > 0) { %>
-        <% products.forEach(prods => { %>
-            <div class="ModalProducts">
-                <h1> <%= prods.name  %> </h1>
-                <h2> <%= prods.price  %> </h2>
-                <h1> <%= prods.qty  %> </h1>
-            </div>
-            <form action="/cart/<%= prods._id %>" method="POST">
-                <button class="btn" type="submit">DeLete </button>
-            </form>
-        <% }) %> 
+        <ul>
+            <% products.forEach(p => { %>
+                <li>
+                    <p>#<%= p.prodId %> (<%= p.number %>)</p>
+                    <form action="/cart-delete-item" method="POST">
+                        <input type="hidden" value="<%= p.prodId._id %>" name="productId">
+                        <button class="btn" type="submit">Delete</button>
+                      </form>
+                </li>
+            <% }) %>
+        </ul>
         <div class="centered ">
             <form action="/create-order" method="POST">
                 <button type="submit" class="btn">Order Now!</button>
             </form>
-        </div>   
-    <% }else { %>
-    <h1 class="ModalEmpyProduct">no Products</h1>
-    <% }%>
+        </div>
+    <% } else { %>
+        <h1>No Products in Cart!</h1>
+    <% } %>
 </main>
 <%- include('../includes/end.ejs') %>
 

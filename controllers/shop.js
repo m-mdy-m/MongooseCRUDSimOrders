@@ -27,3 +27,20 @@ exports.postAddCart = async (req, res) => {
   console.log("add cart =>", addCart);
   return res.redirect("/");
 };
+exports.getCart = async (req, res) => {
+  try {
+    const user = await req.user.populate("cart.SPN.prodId");
+
+    const products = user.cart.SPN;
+    products.forEach((p) => {
+      console.log(p);
+    });
+    res.render("shop/cart", {
+      path: "/cart",
+      title: "Your Cart",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
