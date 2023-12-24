@@ -5,7 +5,7 @@ const bodyParser = require("body-parser")
 const path = require('path')
 // == ** ROUTER ** == //
 const shopRoute = require('./routes/shop')
-
+const homeRoute = require('./routes/home')
 
 
 app.set('view engine', 'ejs')
@@ -13,8 +13,8 @@ app.set('views', 'views')
 app.use(bodyParser.urlencoded({extended : false}))
 app.use(express.static(path.join(__dirname , "public")))
 
+app.use(homeRoute)
 app.use(shopRoute)
-
 const startServer = async ()=>{
     try{
         const url = 'mongodb://localhost:27017/MongooseCRUDSimOrders'
