@@ -1,0 +1,26 @@
+{
+  "name": "mongoosecrudsimorders",
+  "version": "1.0.0",
+  "description": "Simplified order and cart management with Mongoose-backed Node.js efficiency.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-mdy-m/MongooseCRUDSimOrders.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "nodemon",
+    "mongoose",
+    "mongodb"
+  ],
+  "author": "mahdi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m-mdy-m/MongooseCRUDSimOrders/issues"
+  },
+  "homepage": "https://github.com/m-mdy-m/MongooseCRUDSimOrders#readme"
+}
