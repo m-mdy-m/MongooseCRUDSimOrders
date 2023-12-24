@@ -10,7 +10,7 @@ exports.getDashboard = async (req, res) => {
 exports.deleteProds = async (req, res) => {
   const id = req.params.prodId;
   try{
-    await Product.deleteOne(id)
+    await Product.findByIdAndDelete(id)
     console.log('delete user');
     return res.redirect('/dashboard')
   }catch(err){
