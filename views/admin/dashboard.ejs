@@ -11,9 +11,8 @@
             </div>
             <div class="status_buttons">
                 <a href="/edit-product/<%= prods._id %>?edit=true" class="btn">EDIT</a>
-                <form action="/dashboard/<%= prods._id %>?_method=DELETE" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button class="btn">DELETE</button>
+                <form action="/dashboard/<%= prods._id %>" method="POST">
+                    <button type="submit" class="btn">DELETE</button>
                 </form>
             </div>
         <% }) %>    
