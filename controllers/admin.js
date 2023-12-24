@@ -17,3 +17,7 @@ exports.deleteProds = async (req, res) => {
     console.log(err);
   }
 };
+exports.getEdit = async (req,res)=>{
+    const id = req.params.prodId
+    console.log(id);
+}
