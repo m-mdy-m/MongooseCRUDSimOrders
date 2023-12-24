@@ -26,6 +26,10 @@ const User = new Schema({
     ],
   },
 });
+User.methods.clearCart = function(){
+    this.cart = { SPN : []}
+    return this.save()
+}
 User.methods.removeFromCart =function (productId) {
 	const updateCartItems = this.cart.SPN.filter(item => {
 		return item.prodId.toString() !== productId.toString();
