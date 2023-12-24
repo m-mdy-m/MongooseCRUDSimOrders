@@ -29,3 +29,14 @@ exports.getEdit = async (req,res)=>{
 
     })
 }
+exports.postEdit = async (req,res)=>{
+    const id = req.body.prodId
+    const title = req.body.title
+    const price = req.body.price
+    const product = await Product.findByIdAndUpdate(id , {
+        title,
+        price
+    })
+    console.log('update Product =>', product);
+    return res.redirect('/')
+}
