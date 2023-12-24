@@ -7,3 +7,7 @@ exports.getDashboard = async (req,res)=>{
         products
     })
 }
+exports.deleteProds = async (req,res )=>{
+    const id = req.prams.prodId
+    console.log(id);
+}
