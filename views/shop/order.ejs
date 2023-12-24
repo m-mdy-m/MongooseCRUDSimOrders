@@ -4,22 +4,24 @@
 <%- include('../includes/header.ejs') %>
 <main class="main">
     <% if (orders.length <= 0){ %>
-        <h1>Nothing there!</h1>
-        <% } else { %>
-            <ul>
-                <% orders.forEach(order =>{ %>
-                    <li>
-                        <h1 style="color: wheat; font-size: 20px; font-family: sans-serif;"># <%= order._id  %></h1>
-                        <ul>
-                            <% order.Product.forEach(product => { %>
-                                <li style="color: wheat;font-size: 20px; font-family: sans-serif;"><%= product.name  %> (<%= product.qty %>)</li>   
-                            <% }) %>
-                        </ul>
-                    </li>
-                <% }) %>
-            </ul>
+        <% if (orders.length <= 0){ %>
+            <h1>Nothing there!</h1>
+            <% } else { %>
+                <ul>
+                    <% orders.forEach(order =>{ %>
+                        <li>
+                            <h1># <%= order._id  %></h1>
+                            <ul>
+                                <% order.products.forEach(p => { %>
+                                    <li style="color: wheat;font-size: 20px; font-family: sans-serif;"><%= p.product  %> (<%= p.number %>)</li>   
+                                <% }) %>
+                            </ul>
+                        </li>
+                    <% }) %>
+                </ul>
 
             <% } %>
+    <% } %>
 </main>
 <%- include('../includes/end.ejs') %>
 

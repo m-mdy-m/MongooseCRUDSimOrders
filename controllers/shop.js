@@ -26,16 +26,13 @@ exports.postAddCart = async (req, res) => {
   console.log("req.user =>", req.user);
   const addCart = await req.user.addToCart(product);
   console.log("add cart =>", addCart);
-  return res.redirect("/");
+  return res.redirect("/cart");
 };
 exports.getCart = async (req, res) => {
   try {
     const user = await req.user.populate("cart.SPN.prodId");
 
     const products = user.cart.SPN;
-    products.forEach((p) => {
-      console.log(p);
-    });
     res.render("shop/cart", {
       path: "/cart",
       title: "Your Cart",
@@ -48,16 +45,15 @@ exports.getCart = async (req, res) => {
 exports.deleteCart = async (req, res) => {
   const id = req.body.prodId;
   const deleteUser = await req.user.removeFromCart(id);
-  console.log(deleteUser);
   console.log("user delete");
   return res.redirect("/cart");
 };
 
 exports.postOrder = async (req, res) => {
-  const user = await req.user.populate("cart.items.productId"); // Directly awaiting populate()
+  const user = await req.user.populate("cart.SPN.prodId"); // Directly awaiting populate()
 
-  const products = user.cart.items.map((i) => {
-    return { quantity: i.quantity, product: { ...i.productId._doc } };
+  const products = user.cart.SPN.map((i) => {
+    return { number: i.number, product: i.prodId };
   });
   const order = new Order({
     user: {
@@ -72,9 +68,9 @@ exports.postOrder = async (req, res) => {
 };
 exports.getOrders = async (req, res) => {
   const orders = await Order.find({ "user.userId": req.user._id });
-  res.render("shop/orders", {
-    path: "/orders",
-    pageTitle: "Your Orders",
+  res.render("shop/order", {
+    title: "orders",
+    path: req.path,
     orders,
   });
 };
