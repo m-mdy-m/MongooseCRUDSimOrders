@@ -16,36 +16,37 @@ const User = new Schema({
       prodId: {
         type: Schema.Types.ObjectId,
         ref: "Product",
-        required: true,
+        // required: true,
       },
       number: {
         type: Number,
-        required: true,
+        // required: true,
       },
     },
   },
 });
 
-User.methods.addToCart = async function (product) {
-  if (!this.cart) {
-    this.cart = { SPN: [] };
-  }
+User.methods.addCart = async function (product) {
   const carts = this.cart.SPN;
-  const cartsIndex = carts.findIndex(index =>{
-    return index.prodId.toString() === product._id.toString()
-  })
-  
+  console.log("carts =>", typeof this.cart.SPN);
+  const cartsIndex = carts.findIndex((index) => {
+    return index.prodId.toString() === product._id.toString();
+  });
+  const upCart = [...carts];
   let number = 1;
-  if (cartsIndex >= 0){
-    number =carts[cartsIndex].number +1;
-    carts[cartsIndex].number = number 
-  }else{
-    carts.push({
-        prodId : product._id,
-        number,
-    })
+  if (cartsIndex >= 0) {
+    number = carts[cartsIndex].number + 1;
+    carts[cartsIndex].number = number;
+  } else {
+    upCart.push({
+      prodId: product._id,
+      number,
+    });
   }
-  this.cart.SPN = carts;
+  const updateCart = {
+    SPN: upCart,
+  };
+  this.cart = updateCart;
   return await this.save();
 };
 module.exports = mongoose.model("User", User);
